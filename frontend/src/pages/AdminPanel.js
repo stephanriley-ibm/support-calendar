@@ -249,6 +249,7 @@ const AdminPanel = () => {
       title: 'Delete User',
       message: `Are you sure you want to delete ${username}? This action cannot be undone.`,
       type: 'danger',
+      confirmText: 'Delete',
       onConfirm: async () => {
         try {
           await userService.deleteUser(id);
@@ -269,7 +270,7 @@ const AdminPanel = () => {
     setConfirmDialog({
       title: 'Reset Password',
       message: `Reset password for ${username}? A new temporary password will be generated.`,
-      type: 'warning',
+      confirmText: 'Reset Password',
       onConfirm: async () => {
         try {
           const response = await userService.resetPassword(userId);
@@ -515,20 +516,20 @@ const AdminPanel = () => {
         <div className="modal-overlay" onClick={() => setConfirmDialog(null)}>
           <div className="confirm-dialog" onClick={(e) => e.stopPropagation()}>
             <div className="confirm-header">
-              <h3>Confirm Deletion</h3>
+              <h3>{confirmDialog.title || 'Confirm Action'}</h3>
             </div>
             <div className="confirm-body">
               <p>{confirmDialog.message}</p>
             </div>
             <div className="confirm-actions">
-              <button onClick={() => setConfirmDialog(null)} className="btn btn-secondary">
+              <button onClick={confirmDialog.onCancel || (() => setConfirmDialog(null))} className="btn btn-secondary">
                 Cancel
               </button>
               <button
-                onClick={confirmDialog.action}
-                className="btn btn-danger"
+                onClick={confirmDialog.onConfirm || confirmDialog.action}
+                className={`btn ${confirmDialog.type === 'danger' ? 'btn-danger' : 'btn-primary'}`}
               >
-                Delete
+                {confirmDialog.confirmText || (confirmDialog.type === 'danger' ? 'Delete' : 'Confirm')}
               </button>
             </div>
           </div>
