@@ -1,0 +1,240 @@
+.profile-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.profile-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Profile Header */
+.profile-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: white;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.profile-title h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: white;
+}
+
+.profile-subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Profile Section */
+.profile-section {
+  padding: 2rem;
+}
+
+/* Profile View Mode */
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.profile-field label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.profile-field .field-value {
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+/* Only capitalize the role field */
+.profile-field.role-field .field-value {
+  text-transform: capitalize;
+}
+
+.timezone-offset {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.profile-actions {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-actions .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* Profile Edit Mode */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.timezone-input-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.timezone-input-group select {
+  flex: 1;
+}
+
+.timezone-input-group .btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.form-help {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .profile-card {
+  background: var(--card-bg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .profile-header {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+[data-theme="dark"] .profile-avatar {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .role-badge {
+  background: var(--primary-color);
+}
+
+[data-theme="dark"] .profile-field .field-value {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .profile-title h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile-section {
+    padding: 1.5rem;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-field .field-value {
+    font-size: 1rem;
+  }
+
+  .timezone-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .timezone-input-group .btn-sm {
+    width: 100%;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Made with Bob */

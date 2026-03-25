@@ -1,0 +1,521 @@
+/* Light Theme (Default) */
+:root[data-theme="light"] {
+  /* Background colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e8e8e8;
+  --bg-hover: #f0f0f0;
+  
+  /* Text colors */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --text-inverse: #ffffff;
+  
+  /* Border colors */
+  --border-primary: #ddd;
+  --border-secondary: #e0e0e0;
+  --border-focus: #4CAF50;
+  
+  /* Button colors */
+  --btn-primary-bg: #4CAF50;
+  --btn-primary-hover: #45a049;
+  --btn-secondary-bg: #2196F3;
+  --btn-secondary-hover: #0b7dda;
+  --btn-danger-bg: #f44336;
+  --btn-danger-hover: #da190b;
+  --btn-disabled-bg: #cccccc;
+  
+  /* Status colors */
+  --status-pending: #ff9800;
+  --status-approved: #4CAF50;
+  --status-rejected: #f44336;
+  --status-scheduled: #2196F3;
+  --status-used: #9e9e9e;
+  --status-expired: #757575;
+  
+  /* Calendar colors */
+  --calendar-bg: #ffffff;
+  --calendar-border: #ddd;
+  --calendar-today: #fff3cd;
+  --calendar-event-timeoff: #4CAF50;
+  --calendar-event-oncall: #2196F3;
+  --calendar-event-holiday: #8b0000;
+  
+  /* Card/Modal colors */
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  
+  /* Navigation colors */
+  --nav-bg: #2c3e50;
+  --nav-text: #ecf0f1;
+  --nav-hover: #34495e;
+  --nav-active: #3498db;
+  
+  /* Input colors */
+  --input-bg: #ffffff;
+  --input-border: #ddd;
+  --input-focus-border: #4CAF50;
+  --input-disabled-bg: #f5f5f5;
+  
+  /* Table colors */
+  --table-header-bg: #f5f5f5;
+  --table-row-hover: #f9f9f9;
+  --table-border: #ddd;
+  
+  /* Alert colors */
+  --alert-info-bg: #e3f2fd;
+  --alert-info-border: #2196F3;
+  --alert-success-bg: #e8f5e9;
+  --alert-success-border: #4CAF50;
+  --alert-warning-bg: #fff3e0;
+  --alert-warning-border: #ff9800;
+  --alert-error-bg: #ffebee;
+  --alert-error-border: #f44336;
+}
+
+/* Dark Theme */
+:root[data-theme="dark"] {
+  /* Background colors */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #3a3a3a;
+  --bg-hover: #404040;
+  
+  /* Text colors */
+  --text-primary: #f5f5f5;
+  --text-secondary: #d0d0d0;
+  --text-tertiary: #a0a0a0;
+  --text-inverse: #1a1a1a;
+  
+  /* Border colors */
+  --border-primary: #404040;
+  --border-secondary: #4a4a4a;
+  --border-focus: #66bb6a;
+  
+  /* Button colors */
+  --btn-primary-bg: #66bb6a;
+  --btn-primary-hover: #81c784;
+  --btn-secondary-bg: #42a5f5;
+  --btn-secondary-hover: #64b5f6;
+  --btn-danger-bg: #ef5350;
+  --btn-danger-hover: #e57373;
+  --btn-disabled-bg: #4a4a4a;
+  
+  /* Status colors */
+  --status-pending: #ffa726;
+  --status-approved: #66bb6a;
+  --status-rejected: #ef5350;
+  --status-scheduled: #42a5f5;
+  --status-used: #9e9e9e;
+  --status-expired: #757575;
+  
+  /* Calendar colors */
+  --calendar-bg: #2d2d2d;
+  --calendar-border: #404040;
+  --calendar-today: #4a4a2d;
+  --calendar-event-timeoff: #66bb6a;
+  --calendar-event-oncall: #42a5f5;
+  --calendar-event-holiday: #c62828;
+  
+  /* Card/Modal colors */
+  --card-bg: #2d2d2d;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+  
+  /* Navigation colors */
+  --nav-bg: #1a1a1a;
+  --nav-text: #e0e0e0;
+  --nav-hover: #2d2d2d;
+  --nav-active: #42a5f5;
+  
+  /* Input colors */
+  --input-bg: #2d2d2d;
+  --input-border: #404040;
+  --input-focus-border: #66bb6a;
+  --input-disabled-bg: #3a3a3a;
+  
+  /* Table colors */
+  --table-header-bg: #353535;
+  --table-row-hover: #3a3a3a;
+  --table-border: #404040;
+  
+  /* Alert colors */
+  --alert-info-bg: #1e3a5f;
+  --alert-info-border: #42a5f5;
+  --alert-success-bg: #1b5e20;
+  --alert-success-border: #66bb6a;
+  --alert-warning-bg: #4a3a1f;
+  --alert-warning-border: #ffa726;
+  --alert-error-bg: #5f1f1f;
+  --alert-error-border: #ef5350;
+}
+
+/* Apply theme colors to common elements */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Cards and containers */
+.card,
+.modal-content,
+.dashboard-card,
+.stats-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+  box-shadow: 0 2px 4px var(--card-shadow);
+}
+
+/* Buttons */
+button.primary,
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--text-inverse);
+}
+
+button.primary:hover,
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+button.secondary,
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--text-inverse);
+}
+
+button.secondary:hover,
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+}
+
+button.danger,
+.btn-danger {
+  background-color: var(--btn-danger-bg);
+  color: var(--text-inverse);
+}
+
+button.danger:hover,
+.btn-danger:hover {
+  background-color: var(--btn-danger-hover);
+}
+
+button:disabled,
+.btn-disabled {
+  background-color: var(--btn-disabled-bg);
+  cursor: not-allowed;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--input-border);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--input-focus-border);
+  outline: none;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: var(--input-disabled-bg);
+  color: var(--text-tertiary);
+}
+
+/* Tables */
+table {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+thead {
+  background-color: var(--table-header-bg);
+}
+
+tbody tr:hover {
+  background-color: var(--table-row-hover);
+}
+
+td,
+th {
+  border-color: var(--table-border);
+}
+
+/* Navigation */
+nav,
+.navbar {
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+}
+
+nav a,
+.navbar a {
+  color: var(--nav-text);
+}
+
+nav a:hover,
+.navbar a:hover {
+  background-color: var(--nav-hover);
+}
+
+nav a.active,
+.navbar a.active {
+  background-color: var(--nav-active);
+}
+
+/* Modal overlay */
+.modal-overlay {
+  background-color: var(--modal-overlay);
+}
+
+/* Status badges */
+.status-pending {
+  background-color: var(--status-pending);
+  color: var(--text-inverse);
+}
+
+.status-approved {
+  background-color: var(--status-approved);
+  color: var(--text-inverse);
+}
+
+.status-rejected {
+  background-color: var(--status-rejected);
+  color: var(--text-inverse);
+}
+
+.status-scheduled {
+  background-color: var(--status-scheduled);
+  color: var(--text-inverse);
+}
+
+.status-used {
+  background-color: var(--status-used);
+  color: var(--text-inverse);
+}
+
+.status-expired {
+  background-color: var(--status-expired);
+  color: var(--text-inverse);
+}
+
+/* Alerts */
+.alert-info {
+  background-color: var(--alert-info-bg);
+  border-color: var(--alert-info-border);
+  color: var(--text-primary);
+}
+
+.alert-success {
+  background-color: var(--alert-success-bg);
+  border-color: var(--alert-success-border);
+  color: var(--text-primary);
+}
+
+.alert-warning {
+  background-color: var(--alert-warning-bg);
+  border-color: var(--alert-warning-border);
+  color: var(--text-primary);
+}
+
+.alert-error {
+  background-color: var(--alert-error-bg);
+  border-color: var(--alert-error-border);
+  color: var(--text-primary);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--nav-text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+
+/* Admin Panel table distinction in dark mode */
+:root[data-theme="dark"] .data-table table {
+  background-color: #1a1a1a;
+}
+
+:root[data-theme="dark"] .data-table tbody tr {
+  background-color: #1a1a1a !important;
+}
+
+:root[data-theme="dark"] .data-table tbody tr:hover {
+  background-color: var(--table-row-hover) !important;
+}
+
+:root[data-theme="dark"] .data-table thead tr {
+  background-color: #2d2d2d !important;
+}
+
+/* Headings in dark mode - ensure high contrast */
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] h4,
+:root[data-theme="dark"] h5,
+:root[data-theme="dark"] h6 {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+/* Page titles and section headers */
+:root[data-theme="dark"] .page-title,
+:root[data-theme="dark"] .section-title,
+:root[data-theme="dark"] .dashboard-title,
+:root[data-theme="dark"] .card-title {
+  color: #ffffff !important;
+}
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Made with Bob */
+
+
+/* FullCalendar Dark Mode Overrides */
+:root[data-theme="dark"] .fc {
+  /* Calendar background and borders */
+  --fc-border-color: var(--border-primary);
+  --fc-page-bg-color: var(--bg-primary);
+  
+  /* Text colors */
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .fc-theme-standard td,
+:root[data-theme="dark"] .fc-theme-standard th {
+  border-color: var(--border-primary);
+}
+
+:root[data-theme="dark"] .fc-theme-standard .fc-scrollgrid {
+  border-color: var(--border-primary);
+}
+
+/* Calendar header */
+:root[data-theme="dark"] .fc .fc-col-header-cell {
+  background-color: var(--table-header-bg);
+  color: var(--text-primary);
+}
+
+/* Day cells */
+:root[data-theme="dark"] .fc .fc-daygrid-day {
+  background-color: var(--card-bg);
+}
+
+:root[data-theme="dark"] .fc .fc-daygrid-day:hover {
+  background-color: var(--bg-hover);
+}
+
+/* Day numbers */
+:root[data-theme="dark"] .fc .fc-daygrid-day-number {
+  color: var(--text-primary);
+}
+
+/* Today highlight */
+:root[data-theme="dark"] .fc .fc-day-today {
+  background-color: var(--calendar-today) !important;
+}
+
+/* Toolbar buttons */
+:root[data-theme="dark"] .fc .fc-button {
+  background-color: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--text-inverse);
+}
+
+:root[data-theme="dark"] .fc .fc-button:hover {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+}
+
+:root[data-theme="dark"] .fc .fc-button:disabled {
+  background-color: var(--btn-disabled-bg);
+  border-color: var(--btn-disabled-bg);
+}
+
+:root[data-theme="dark"] .fc .fc-button-active {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+}
+
+/* Toolbar title */
+:root[data-theme="dark"] .fc .fc-toolbar-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Event text */
+:root[data-theme="dark"] .fc-event-title,
+:root[data-theme="dark"] .fc-event-time {
+  color: var(--text-inverse);
+  font-weight: 500;
+}
+
+/* More link */
+:root[data-theme="dark"] .fc .fc-more-link {
+  color: var(--btn-secondary-bg);
+}
+
+:root[data-theme="dark"] .fc .fc-more-link:hover {
+  color: var(--btn-secondary-hover);
+}
+
+/* Popover */
+:root[data-theme="dark"] .fc .fc-popover {
+  background-color: var(--card-bg);
+  border-color: var(--border-primary);
+}
+
+:root[data-theme="dark"] .fc .fc-popover-header {
+  background-color: var(--table-header-bg);
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .fc .fc-popover-body {
+  color: var(--text-primary);
+}
+
+/* List view */
+:root[data-theme="dark"] .fc-list-event:hover td {
+  background-color: var(--table-row-hover);
+}
+
+:root[data-theme="dark"] .fc-list-day-cushion {
+  background-color: var(--table-header-bg);
+  color: var(--text-primary);
+}
+
+/* Ensure all calendar text is readable */
+:root[data-theme="dark"] .fc *,
+:root[data-theme="dark"] .fc a {
+  color: inherit;
+}

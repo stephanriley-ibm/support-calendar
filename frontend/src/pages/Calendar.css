@@ -1,0 +1,375 @@
+.calendar-page {
+  padding: 20px 0;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.calendar-header h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 32px;
+}
+
+.calendar-filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--card-shadow);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.event-type-filters {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--card-shadow);
+  flex-wrap: wrap;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.filter-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--btn-primary-bg);
+}
+
+.filter-checkbox:hover {
+  color: var(--text-primary);
+}
+
+.calendar-container {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--card-shadow);
+}
+
+/* FullCalendar customization */
+.fc {
+  font-family: inherit;
+}
+
+.fc .fc-button {
+  background-color: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.fc .fc-button:hover {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+}
+
+.fc .fc-button:disabled {
+  opacity: 0.6;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: #e9ecef;
+}
+
+.fc-daygrid-day-number {
+  color: #495057;
+  font-weight: 500;
+}
+
+.fc-col-header-cell {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+}
+
+.fc-event {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 13px;
+}
+
+.fc-event:hover {
+  opacity: 0.8;
+}
+
+.fc-daygrid-event {
+  white-space: normal;
+}
+
+.fc-daygrid-day-top {
+  padding: 8px;
+}
+
+.fc-day-today {
+  background-color: #fff3cd !important;
+}
+
+@media (max-width: 768px) {
+  .calendar-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .calendar-header h1 {
+    font-size: 24px;
+  }
+
+  .calendar-filters {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-select {
+    flex: 1;
+  }
+
+  .calendar-legend {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .calendar-container {
+    padding: 10px;
+  }
+
+  .fc .fc-toolbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fc .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Event Modal */
+.event-modal {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 24px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.event-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.event-detail:last-child {
+  border-bottom: none;
+}
+
+.event-detail strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.event-detail span {
+  color: var(--text-primary);
+  font-size: 16px;
+  text-align: right;
+  max-width: 60%;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  border-top: 1px solid var(--input-border);
+  justify-content: flex-end;
+}
+
+.modal-actions .btn {
+  min-width: 100px;
+}
+
+/* Confirm Dialog */
+.confirm-dialog {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease;
+  text-align: center;
+}
+
+.confirm-dialog h3 {
+  margin: 0 0 15px 0;
+  color: var(--text-primary);
+  font-size: 22px;
+}
+
+.confirm-dialog p {
+  color: var(--text-secondary);
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.warning-text {
+  color: #e74c3c;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+  justify-content: center;
+}
+
+.dialog-actions .btn {
+  min-width: 120px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Made with Bob */

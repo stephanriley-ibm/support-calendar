@@ -1,0 +1,224 @@
+.daysinlieu-page {
+  padding: 20px 0;
+}
+
+.daysinlieu-page .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.daysinlieu-page .page-header h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 32px;
+}
+
+.available-badge {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border-primary);
+}
+
+.filter-tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.filter-tab:hover {
+  color: #27ae60;
+}
+
+.filter-tab.active {
+  color: #27ae60;
+  border-bottom-color: #27ae60;
+}
+
+.days-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.day-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: var(--bg-hover);
+  border-radius: 8px;
+  border-left: 4px solid var(--status-approved);
+  transition: all 0.2s;
+}
+
+.day-item:hover {
+  background-color: var(--table-row-hover);
+  box-shadow: 0 2px 8px var(--card-shadow);
+}
+
+.day-main {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.day-date {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.day-source {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.shift-type-label {
+  font-style: italic;
+  color: var(--text-tertiary);
+  margin-left: 5px;
+  text-transform: capitalize;
+}
+
+.adjustment-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #e67e22;
+  background-color: #fff3cd;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+.adjustment-icon {
+  font-size: 16px;
+}
+
+.taken-note {
+  font-size: 13px;
+  color: #27ae60;
+  background-color: #d4edda;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+.day-meta {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 8px;
+}
+
+.day-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.badge-taken {
+  background-color: #27ae60;
+  color: white;
+}
+
+.info-card {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: var(--alert-info-bg);
+  border-left: 4px solid var(--alert-info-border);
+  border-radius: 8px;
+}
+
+.info-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+
+.info-card p {
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.info-card ul {
+  margin: 15px 0;
+  padding-left: 25px;
+}
+
+.info-card li {
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.info-card strong {
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .daysinlieu-page .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .daysinlieu-page .page-header h1 {
+    font-size: 24px;
+  }
+
+  .available-badge {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .filter-tabs {
+    overflow-x: auto;
+  }
+
+  .filter-tab {
+    padding: 10px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .day-item {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .day-main {
+    margin-right: 0;
+  }
+
+  .day-actions {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Made with Bob */

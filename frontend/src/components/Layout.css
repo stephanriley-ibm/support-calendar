@@ -1,0 +1,124 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px var(--card-shadow);
+  height: 60px;
+}
+
+.navbar-brand {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.navbar-brand a {
+  color: var(--nav-text);
+  text-decoration: none;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  color: var(--nav-text);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: var(--nav-hover);
+}
+
+.nav-link.active {
+  background-color: var(--nav-active);
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: var(--nav-hover);
+  text-decoration: none;
+  color: var(--nav-text);
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profile-button:hover {
+  background-color: var(--nav-active);
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-logout {
+  background-color: var(--btn-danger-bg);
+  color: var(--text-inverse);
+  border: 1px solid var(--btn-danger-bg);
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background-color: var(--btn-danger-hover);
+  border-color: var(--btn-danger-hover);
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .navbar-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .navbar-user {
+    margin-top: 10px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+}
+
+/* Made with Bob */
