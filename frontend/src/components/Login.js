@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
@@ -7,12 +7,34 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, error } = useAuth();
+  const [localError, setLocalError] = useState('');
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
+
+  // Clear error when user starts typing (but only if they change the value after error)
+  const [lastErrorUsername, setLastErrorUsername] = useState('');
+  const [lastErrorPassword, setLastErrorPassword] = useState('');
+
+  useEffect(() => {
+    if (localError) {
+      // Only clear if user actually changed the input after the error
+      if (username !== lastErrorUsername || password !== lastErrorPassword) {
+        setLocalError('');
+      }
+    }
+  }, [username, password, localError, lastErrorUsername, lastErrorPassword]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setLocalError('');
 
     try {
       const response = await login(username, password);
@@ -24,7 +46,12 @@ const Login = () => {
         navigate('/');
       }
     } catch (err) {
-      // Error is handled by AuthContext
+      // Set local error that persists and remember the values that caused the error
+      const errorMsg = err.message || 'Login failed. Please check your credentials and try again.';
+      console.log('Setting error:', errorMsg); // Debug log
+      setLocalError(errorMsg);
+      setLastErrorUsername(username);
+      setLastErrorPassword(password);
       console.error('Login error:', err);
     } finally {
       setLoading(false);
@@ -37,9 +64,9 @@ const Login = () => {
         <h1>Calendar App</h1>
         <h2>Sign In</h2>
         
-        {error && (
-          <div className="error-message">
-            {error}
+        {localError && (
+          <div className="error-message" style={{ marginBottom: '1rem', padding: '0.75rem', backgroundColor: '#fee', border: '1px solid #fcc', borderRadius: '4px', color: '#c33' }}>
+            {localError}
           </div>
         )}
 

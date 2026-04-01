@@ -29,7 +29,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     // Only redirect to login on 401 if it's not the login endpoint itself
-    if (error.response?.status === 401 && !error.config.url.includes('/auth/login')) {
+    if (error.response?.status === 401 && !error.config.url.includes('/users/login')) {
       // Unauthorized - clear token and redirect to login
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');

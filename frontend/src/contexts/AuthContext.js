@@ -55,7 +55,24 @@ export const AuthProvider = ({ children }) => {
       setUser(response.user);
       return response;
     } catch (err) {
-      const errorMessage = err.response?.data?.detail || 'Login failed';
+      // Handle different error response formats
+      let errorMessage = 'Login failed. Please try again.';
+      
+      if (err.response?.data) {
+        // Check for different error formats from backend
+        if (err.response.data.error) {
+          errorMessage = err.response.data.error;
+        } else if (err.response.data.detail) {
+          errorMessage = err.response.data.detail;
+        } else if (err.response.data.message) {
+          errorMessage = err.response.data.message;
+        } else if (typeof err.response.data === 'string') {
+          errorMessage = err.response.data;
+        }
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      
       setError(errorMessage);
       throw new Error(errorMessage);
     }
