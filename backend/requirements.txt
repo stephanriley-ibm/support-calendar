@@ -8,3 +8,4 @@ redis==5.0.1
 pylint-django==2.7.0
 python-dotenv==1.0.0
 gunicorn==21.2.0
+pagerduty==6.2.1

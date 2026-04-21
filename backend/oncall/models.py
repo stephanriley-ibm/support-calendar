@@ -3,7 +3,9 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.postgres.fields import JSONField
 from users.models import User
+import json
 
 
 class Holiday(models.Model):
@@ -52,6 +54,223 @@ class Holiday(models.Model):
         else:
             self._date_changed = False
         super().save(*args, **kwargs)
+
+
+class OnCallProvider(models.Model):
+    """Configuration for external on-call scheduling providers"""
+    
+    PROVIDER_TYPE_CHOICES = [
+        ('pagerduty', 'PagerDuty'),
+        ('opsgenie', 'Opsgenie'),
+        ('custom', 'Custom Provider'),
+    ]
+    
+    name = models.CharField(
+        max_length=100,
+        help_text="Provider name (e.g., 'Production PagerDuty')"
+    )
+    provider_type = models.CharField(
+        max_length=50,
+        choices=PROVIDER_TYPE_CHOICES,
+        help_text="Type of provider"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Whether this provider is active"
+    )
+    is_primary = models.BooleanField(
+        default=False,
+        help_text="Primary provider for sync"
+    )
+    
+    # Configuration stored as JSON
+    config = models.JSONField(
+        default=dict,
+        help_text="Provider configuration (API keys, schedule IDs, etc.)"
+    )
+    
+    # Sync settings
+    auto_sync_enabled = models.BooleanField(
+        default=True,
+        help_text="Enable automatic sync"
+    )
+    sync_frequency_hours = models.IntegerField(
+        default=24,
+        help_text="Sync frequency in hours"
+    )
+    sync_lookback_days = models.IntegerField(
+        default=7,
+        help_text="Days to look back when syncing"
+    )
+    sync_lookahead_days = models.IntegerField(
+        default=90,
+        help_text="Days to look ahead when syncing"
+    )
+    
+    # Sync status
+    last_sync_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Last successful sync time"
+    )
+    last_sync_status = models.CharField(
+        max_length=20,
+        default='never',
+        help_text="Status of last sync"
+    )
+    last_sync_error = models.TextField(
+        blank=True,
+        help_text="Error message from last sync"
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'oncall_providers'
+        ordering = ['-is_primary', 'name']
+    
+    def __str__(self):
+        return f"{self.name} ({self.get_provider_type_display()})"
+    
+    def get_config_value(self, key, default=None):
+        """Safely get configuration value"""
+        return self.config.get(key, default)
+    
+    def set_config_value(self, key, value):
+        """Set configuration value"""
+        self.config[key] = value
+        self.save()
+
+
+class ExternalUserMapping(models.Model):
+    """Maps external provider users to local application users"""
+    
+    provider = models.ForeignKey(
+        OnCallProvider,
+        on_delete=models.CASCADE,
+        related_name='user_mappings',
+        help_text="Provider this mapping belongs to"
+    )
+    external_user_id = models.CharField(
+        max_length=100,
+        help_text="User ID in external provider"
+    )
+    external_email = models.EmailField(
+        help_text="User email in external provider"
+    )
+    external_name = models.CharField(
+        max_length=200,
+        help_text="User name in external provider"
+    )
+    
+    local_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='external_mappings',
+        help_text="Local user this maps to"
+    )
+    
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Whether this mapping is active"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'external_user_mappings'
+        unique_together = ['provider', 'external_user_id']
+        indexes = [
+            models.Index(fields=['provider', 'external_user_id']),
+            models.Index(fields=['local_user']),
+        ]
+    
+    def __str__(self):
+        return f"{self.external_name} ({self.provider.name}) → {self.local_user.get_full_name()}"
+
+
+class ProviderSyncLog(models.Model):
+    """Log of provider sync operations"""
+    
+    STATUS_CHOICES = [
+        ('started', 'Started'),
+        ('success', 'Success'),
+        ('partial', 'Partial Success'),
+        ('failed', 'Failed'),
+    ]
+    
+    provider = models.ForeignKey(
+        OnCallProvider,
+        on_delete=models.CASCADE,
+        related_name='sync_logs',
+        help_text="Provider that was synced"
+    )
+    sync_type = models.CharField(
+        max_length=50,
+        help_text="Type of sync (scheduled, manual, initial)"
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        help_text="Sync status"
+    )
+    
+    start_time = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Sync start time"
+    )
+    end_time = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Sync end time"
+    )
+    
+    # Statistics
+    shifts_fetched = models.IntegerField(
+        default=0,
+        help_text="Number of shifts fetched from provider"
+    )
+    shifts_created = models.IntegerField(
+        default=0,
+        help_text="Number of new shifts created"
+    )
+    shifts_updated = models.IntegerField(
+        default=0,
+        help_text="Number of existing shifts updated"
+    )
+    shifts_skipped = models.IntegerField(
+        default=0,
+        help_text="Number of shifts skipped"
+    )
+    
+    error_message = models.TextField(
+        blank=True,
+        help_text="Error message if sync failed"
+    )
+    details = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Additional sync details"
+    )
+    
+    class Meta:
+        db_table = 'provider_sync_logs'
+        ordering = ['-start_time']
+        indexes = [
+            models.Index(fields=['provider', '-start_time']),
+            models.Index(fields=['status']),
+        ]
+    
+    def __str__(self):
+        return f"{self.provider.name} - {self.sync_type} - {self.status} ({self.start_time})"
+    
+    @property
+    def duration_seconds(self):
+        """Calculate sync duration in seconds"""
+        if self.end_time:
+            return (self.end_time - self.start_time).total_seconds()
+        return None
 
 
 class OnCallShift(models.Model):
@@ -118,6 +337,43 @@ class OnCallShift(models.Model):
         blank=True,
         help_text="Additional notes about the shift"
     )
+    
+    # Provider tracking fields
+    provider = models.ForeignKey(
+        OnCallProvider,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='synced_shifts',
+        help_text="External provider this shift was synced from"
+    )
+    external_shift_id = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="ID in external provider system"
+    )
+    external_schedule_id = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="Schedule ID in external provider system"
+    )
+    synced_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="When this shift was last synced from provider"
+    )
+    is_synced = models.BooleanField(
+        default=False,
+        help_text="Whether this shift came from an external provider"
+    )
+    sync_metadata = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Additional metadata from provider"
+    )
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -129,6 +385,15 @@ class OnCallShift(models.Model):
             models.Index(fields=['engineer', 'shift_date']),
             models.Index(fields=['holiday']),
             models.Index(fields=['shift_type', 'shift_date']),
+            models.Index(fields=['provider', 'external_shift_id']),
+            models.Index(fields=['is_synced', 'shift_date']),
+        ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=['provider', 'external_shift_id'],
+                condition=models.Q(provider__isnull=False, external_shift_id__isnull=False),
+                name='unique_provider_shift'
+            ),
         ]
     
     def __str__(self):
